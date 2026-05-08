@@ -11,7 +11,7 @@
 ## Service Boundaries
 
 ### Search Service
-- Read-heavy, indexed via MongoDB
+- Read-heavy, indexed via MongoDB.
 - Cached in Redis for hot queries
 - Stateless — scales horizontally
 - No writes from user requests (data populated via ETL from supplier feeds)
@@ -56,7 +56,7 @@
 - Request IDs propagated via headers for distributed tracing is possible
 - Recommended: OpenTelemetry SDK for full distributed traces
 
-## Data Storage
+## Datas Storage
 
 | Service | Store | Why |
 |---|---|---|
@@ -64,7 +64,7 @@
 | Pricing | PostgreSQL + Redis | Strict pricing tables; cache for hot lookups |
 | Reservation | PostgreSQL | Strong consistency for transactional data |
 
-## Scaling Strategy
+## Scaling Strategy 
 
 - Stateless services scale via Kubernetes HPA on CPU is running
 - Search service can scale to 10+ replicas during peak
