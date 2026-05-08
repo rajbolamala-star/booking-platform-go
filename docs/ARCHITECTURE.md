@@ -11,7 +11,7 @@
 ## Service Boundaries
 
 ### Search Service
-- Read-heavy, indexed via MongoDB
+- Read-heavy, indexed via MongoDB.
 - Cached in Redis for hot queries
 - Stateless — scales horizontally
 - No writes from user requests (data populated via ETL from supplier feeds)
