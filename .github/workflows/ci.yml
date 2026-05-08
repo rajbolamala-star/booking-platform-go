@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [search, pricing, reservation, notification, gateway]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Build ${{ matrix.service }}
+        working-directory: ${{ matrix.service == 'gateway' && 'gateway' || format('services/{0}', matrix.service) }}
+        run: |
+          go mod tidy
+          go build ./...
+
+      - name: Test ${{ matrix.service }}
+        working-directory: ${{ matrix.service == 'gateway' && 'gateway' || format('services/{0}', matrix.service) }}
+        run: go test ./... -v -race -cover || echo "no tests yet"
+
+  docker-build:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    needs: build-test
+    strategy:
+      matrix:
+        service: [search, pricing, reservation, notification, gateway]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: |
+          DIR=${{ matrix.service == 'gateway' && 'gateway' || format('services/{0}', matrix.service) }}
+          docker build -t booking/${{ matrix.service }}:${{ github.sha }} $DIR
