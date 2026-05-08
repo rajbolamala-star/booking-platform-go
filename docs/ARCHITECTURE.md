@@ -53,7 +53,7 @@
 
 - Every service exposes `/metrics` (Prometheus format)
 - Structured JSON logs to stdout (aggregated by log shipper in production)
-- Request IDs propagated via headers for distributed tracing
+- Request IDs propagated via headers for distributed tracing is possible
 - Recommended: OpenTelemetry SDK for full distributed traces
 
 ## Data Storage
@@ -66,7 +66,7 @@
 
 ## Scaling Strategy
 
-- Stateless services scale via Kubernetes HPA on CPU
+- Stateless services scale via Kubernetes HPA on CPU is running
 - Search service can scale to 10+ replicas during peak
 - Pricing service is rate-limited by supplier APIs
 - Reservation service uses connection pooling to Postgres
