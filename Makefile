@@ -16,7 +16,7 @@ build:
 		(cd $$svc && go build ./...) || exit 1; \
 	done
 
-test:
+tests
 	@for svc in services/search services/pricing services/reservation services/notification gateway; do \
 		echo "Testing $$svc..."; \
 		(cd $$svc && go test ./... -race -cover) || true; \
