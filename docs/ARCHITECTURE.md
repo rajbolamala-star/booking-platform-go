@@ -6,7 +6,7 @@
 2. **Database-per-service** — no shared databases; services communicate via APIs/events
 3. **Stateless services** — identity passed via headers; horizontal scale-friendly
 4. **Eventual consistency** — accepted as a tradeoff for fault isolation
-5. **Observability-first** — every service emits structured logs + metrics
+5. **Observability-first** — every service will be emiting structured logs + metrics
 
 ## Service Boundaries
 
